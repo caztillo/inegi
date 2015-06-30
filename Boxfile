@@ -41,7 +41,7 @@ web1:
   nonpersistent_writable_dirs:
     - storage/cache
   log_watch:
-    larvel[error]: 'storage/logs/laravel.log'
+    laravel[error]: 'storage/logs/laravel.log'
   before_deploy:
     - 'php artisan migrate --no-interaction'
 
