@@ -62,4 +62,11 @@ storage1:
 #   exec:
 #     - 'php artisan queue:listen'
 #   php_extensions:
+#     - json
+#     - mbstring
+#     - mcrypt
+#     - tokenizer
+#     - xcache
 #     - redis
+#   log_watch:
+#     laravel[error]: 'storage/logs/laravel.log'
