@@ -1,4 +1,4 @@
-## Pagoda Box Laravel 5 Boilerplate
+## Pagoda Box Laravel 5.1 Boilerplate
 
 Laravel is a web application framework built for web artisans. Pagoda Box simplifies deployment and ongoing management of code and infrastructure in a scalable environment.
 
