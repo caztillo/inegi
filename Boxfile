@@ -59,8 +59,7 @@ storage1:
 # Optional Worker Config
 # --------------------------------
 # worker1:
-#   exec:
-#     - 'php artisan queue:listen'
+#   exec: 'php artisan queue:listen'
 #   php_extensions:
 #     - json
 #     - mbstring
