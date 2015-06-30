@@ -68,5 +68,10 @@ storage1:
 #     - tokenizer
 #     - xcache
 #     - redis
+#   network_dirs:
+#     - storage/framework
+#     - storage/app
+#   nonpersistent_writable_dirs:
+#     - storage/cache
 #   log_watch:
 #     laravel[error]: 'storage/logs/laravel.log'
