@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/soap-inegi', array('uses' => 'Soap@index'));
+Route::post('/soap-inegi-webservice', array('uses' => 'Soap@webservice'));
