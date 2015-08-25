@@ -23,7 +23,6 @@ Route::get('/rest', array('uses' => 'RestController@index'));
 Route::post('/curl', array('uses' => 'RestController@curl'));
 
 
-
 Route::group(array('prefix' => 'rest/api/v1'), function()
 {
     Route::resource('indicador.ubicacion.periodo', 'RestController', array('only' => 'show'));
