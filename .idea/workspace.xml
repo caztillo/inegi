@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0520a96-d3bb-424d-8f1d-c7294243b3f4" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\xampp\htdocs\inegi\.env.example.orig" afterPath="" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\inegi\.gitignore.orig" afterPath="" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\inegi\artisan.orig" afterPath="" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\inegi\composer.json.orig" afterPath="" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\inegi\composer.lock.orig" afterPath="" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\inegi\readme.md.orig" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="inegi.iws" />
@@ -393,7 +386,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1612" height="867" extended-state="1" />
+    <frame x="-7" y="0" width="1612" height="867" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
