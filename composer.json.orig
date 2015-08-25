@@ -7,8 +7,11 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-		"predis/predis": "~1.1@dev"
+<<<<<<< HEAD
         "laravelcollective/html": "5.1.*"
+=======
+		"predis/predis": "~1.1@dev"
+>>>>>>> f1c195cd1adbac0b89b972ec7fb36a27a0cc8534
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

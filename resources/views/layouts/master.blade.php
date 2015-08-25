@@ -5,7 +5,6 @@
     {!! Html::style('css/materialize.min.css',['media' => "screen,projection"]) !!}
     {!! Html::style('css/ladda.min.css') !!}
     {!! Html::style('css/prettify.css') !!}
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>INEGI WebServices</title>
     <meta charset=UTF-8">
