@@ -12,6 +12,7 @@ class IndicadorUbicacionGeografica extends Model
      * @var string
      */
     protected $table = 'indicadores_ubicaciones_geograficas';
+    protected $hidden = array('id','indicador_id','ubicacion_geografica_id','created_at', 'updated_at');
 
     /**
      * The attributes that are mass assignable.

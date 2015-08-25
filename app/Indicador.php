@@ -12,6 +12,7 @@ class Indicador extends Model
      * @var string
      */
     protected $table = 'indicadores';
+    protected $hidden = array('id','created_at', 'updated_at');
 
     /**
      * The attributes that are mass assignable.

@@ -15,5 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/soap-inegi', array('uses' => 'Soap@index'));
-Route::post('/soap-inegi-webservice', array('uses' => 'Soap@webservice'));
+Route::get('/soap-inegi', array('uses' => 'SoapController@index'));
+Route::post('/soap-inegi-webservice', array('uses' => 'SoapController@webservice'));
+
+
+Route::get('/rest-inegi', array('uses' => 'RestController@index'));
+Route::post('/curl', array('uses' => 'RestController@curl'));
+
+
+
+Route::group(array('prefix' => 'rest-inegi/api/v1'), function()
+{
+    Route::resource('indicador.ubicacion.periodo', 'RestController', array('only' => 'show'));
+});

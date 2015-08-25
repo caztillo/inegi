@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
-class Soap extends Controller
+class SoapController extends Controller
 {
     /**
      * Display a listing of the resource.
