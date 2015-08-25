@@ -4,8 +4,8 @@
         <div class="nav-wrapper  blue darken-4 ">
             <a href="#" class="brand-logo center">INEGI</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li class="active"><a href="soap-inegi">SOAP</a></li>
-                <li><a href="rest-inegi">REST</a></li>
+                <li class="active"><a href="soap">SOAP</a></li>
+                <li><a href="rest">REST</a></li>
             </ul>
         </div>
     </nav>
@@ -105,6 +105,8 @@
 
             $('#btn_enviar').click(function(e){
                 e.preventDefault();
+                var btn = $('#btn_enviar');
+
                 var l = Ladda.create(this);
                 var indicador = $('select[name="indicador"]').val();
                 var ubicacion_geografica = $('select[name="ubicacion_geografica"]').val();
@@ -113,7 +115,7 @@
                 $.ajax(
                         {
                             type    : "POST",
-                            url : '{{ url("soap-inegi-webservice") }}',
+                            url : '{{ url("soap-webservice") }}',
                             data : ajaxData,
                             dataType: "xml",
 
@@ -121,11 +123,13 @@
                             {
                                 //btn.prop('disabled', 'disabled');
                                 l.start();
+                                btn.prop('disabled', true);
                             },
 
                             success : function(response, textStatus, jqXHR)
                             {
                                 l.stop();
+                                btn.prop('disabled', false);
                                 var xml = jqXHR.responseText;
 
                                 var xml_formatted = formatXml(xml);

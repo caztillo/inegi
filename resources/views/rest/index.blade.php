@@ -4,8 +4,8 @@
         <div class="nav-wrapper  blue darken-4 ">
             <a href="#" class="brand-logo center">INEGI</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li ><a href="soap-inegi">SOAP</a></li>
-                <li class="active"><a href="rest-inegi">REST</a></li>
+                <li ><a href="soap">SOAP</a></li>
+                <li class="active"><a href="rest">REST</a></li>
             </ul>
         </div>
     </nav>
@@ -48,6 +48,7 @@
 
             $('#btn_enviar').click(function(e){
                 e.preventDefault();
+                var btn = $('#btn_enviar');
                 var l = Ladda.create(this);
                 var url_rest = $('input[name="url"]').val();
 
@@ -63,11 +64,13 @@
                             {
                                 //btn.prop('disabled', 'disabled');
                                 l.start();
+                                btn.prop('disabled', true);
                             },
 
                             success : function(response, textStatus, jqXHR)
                             {
                                 l.stop();
+                                btn.prop('disabled', false);
                                 var json = jqXHR.responseText;
 
                                 var json_formatted = JSON.stringify(JSON.parse(json), null, "\t"); // Indented with tab
