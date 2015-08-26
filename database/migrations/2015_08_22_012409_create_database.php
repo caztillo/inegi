@@ -55,22 +55,24 @@ class CreateDatabase extends Migration
         //
         Schema::table('indicadores_ubicaciones_geograficas', function ( $table)
         {
-            $table->dropForeign('fk_indicadores');
             $table->dropForeign('fk_ubicaciones_geograficas');
+            $table->dropForeign('fk_indicadores');
         });
 
-        Schema::table('indicadores_ubicaciones_geograficas', function ( $table)
+        Schema::drop('indicadores_ubicaciones_geograficas');
+
+        Schema::table('ubicaciones_geograficas', function ( $table)
         {
-            $table->dropUnique('indicadores_ubicaciones_geograficas_codigo_unique');
+            $table->dropUnique('ubicaciones_geograficas_codigo_unique');
         });
+
+        Schema::drop('ubicaciones_geograficas');
 
         Schema::table('indicadores', function ( $table)
         {
             $table->dropUnique('indicadores_indicador_unique');
         });
 
-        Schema::drop('indicadores_ubicaciones_geograficas');
-        Schema::drop('ubicaciones_geograficas');
         Schema::drop('indicadores');
     }
 }

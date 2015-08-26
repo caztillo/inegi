@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(UserTableSeeder::class);
 
+        $this->call(IndicadorSeeder::class);
+        $this->call(UbicacionGeograficaSeeder::class);
+        $this->call(IndicadorUbicacionGeograficaSeeder::class);
+
         Model::reguard();
     }
 }
