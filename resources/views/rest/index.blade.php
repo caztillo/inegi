@@ -15,7 +15,7 @@
 
             <form id="form_data">
                 <div class="input-field col s12">
-                    <input name="url" type="text" class="validate">
+                    <input name="url" type="text" class="validate" value="{{url("rest/api/v1/indicador/1002000001/ubicacion/32/periodo/2010")}}">
                     <label for="url">URL</label>
                 </div>
             </form>

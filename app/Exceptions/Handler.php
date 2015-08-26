@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -39,11 +40,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+
+
         // 404 page when a model is not found
         if ($e instanceof ModelNotFoundException)
         {
+            if ( $request->isXmlHttpRequest() )
+            {
+                return Response::json(
+                    ['error' =>  "Página no encontrada."], 404 );
+            }
+
             return response()->view('errors.404', [], 404);
         }
+
+
 
         if ($this->isHttpException($e))
         {
@@ -51,8 +62,19 @@ class Handler extends ExceptionHandler
         }
         else
         {
+
             // Custom error 500 view on production
-            if (app()->environment() == 'production') {
+            if (app()->environment() == 'production')
+            {
+                if ( $request->isXmlHttpRequest() )
+                {
+                    return Response::json( [
+                        'error' => [
+                            'exception' => class_basename( $e ) . ' in ' . basename( $e->getFile() ) . ' line ' . $e->getLine() . ': ' . $e->getMessage(),
+                        ]
+                    ], 500 );
+                }
+
                 return response()->view('errors.500', [], 500);
             }
             return parent::render($request, $e);
