@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', array('uses' => 'SoapController@index'));
 
 Route::get('/soap', array('uses' => 'SoapController@index'));
 Route::post('/soap-webservice', array('uses' => 'SoapController@webservice'));
