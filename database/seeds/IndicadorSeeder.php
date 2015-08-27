@@ -13,8 +13,17 @@ class IndicadorSeeder extends Seeder
     {
         DB::table('indicadores')->delete();
 
-        $indicadores = ['indicador' => '1002000001', 'nombre' => 'Poblacion Total', 'created_at' => \Carbon\Carbon::now()];
+        $indicadores = array(
+            ['indicador' => '1002000001', 'nombre' => 'Poblacion Total', 'created_at' => \Carbon\Carbon::now()],
+            ['indicador' => '1001000001', 'nombre' => 'Superficie Continental ', 'created_at' => \Carbon\Carbon::now()],
+        );
 
-        \App\Indicador::create($indicadores);
+        foreach ($indicadores as $indicador)
+        {
+            \App\Indicador::create($indicador);
+        }
+
+
+
     }
 }

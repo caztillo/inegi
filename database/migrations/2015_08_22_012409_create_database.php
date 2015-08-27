@@ -41,6 +41,7 @@ class CreateDatabase extends Migration
                 ->on("ubicaciones_geograficas")->onDelete('cascade');
             $table->integer("periodo");
             $table->decimal("valor", 10,2);
+            $table->string('unidad');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class IndicadorUbicacionGeografica extends Model
      *
      * @var array
      */
-    protected $fillable = ['periodo', 'valor'];
+    protected $fillable = ['periodo', 'valor', 'unidad'];
 
     public function indicador()
     {

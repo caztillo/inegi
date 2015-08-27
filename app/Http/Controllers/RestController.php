@@ -49,7 +49,7 @@ class RestController extends Controller
      * @param  int  $periodo
      * @return Response
      */
-    public function show($indicador, $ubicacion, $periodo)
+    public function show($indicador, $ubicacion=0, $periodo=0)
     {
 
         try
@@ -58,21 +58,33 @@ class RestController extends Controller
 
 
 
-            $response = IndicadorUbicacionGeografica::with(['indicador' => function($query) use ($indicador)
-            {
-                $query->where('indicador',$indicador);
-            }, 'ubicacion_geografica' => function($query) use ($ubicacion)
-            {
-                $query->where('codigo',$ubicacion);
-            }])->where('periodo','=',$periodo)->get();
 
-            /*$response = IndicadorUbicacionGeografica::whereHas('indicador', function($query) use ($indicador)
+            $data = IndicadorUbicacionGeografica::whereHas('indicador', function($query) use ($indicador)
             {
-                $query->where('indicador','=',$indicador);
-            })->whereHas('ubicacion_geografica', function($query) use ($ubicacion)
+                $query->where('indicador', '=', $indicador);
+
+
+            })
+                ->with('indicador')
+                ->whereHas('ubicacion_geografica', function($query) use ($ubicacion)
+                {
+                    if(!empty($ubicacion))
+                        $query->where('codigo', '=', $ubicacion);
+
+                })
+                ->with('ubicacion_geografica');
+
+
+
+            if(!empty($periodo))
             {
-                $query->where('codigo','=',$ubicacion);
-            })->where('periodo','=',$periodo)->get();*/
+                $data = $data->where('periodo', $periodo);
+            }
+
+            $data = $data->get();
+
+
+
 
         }
         catch (Exception $e)
@@ -81,7 +93,7 @@ class RestController extends Controller
         }
         finally
         {
-            return \Illuminate\Support\Facades\Response::json($response, $statusCode);
+            return \Illuminate\Support\Facades\Response::json($data, $statusCode);
         }
     }
 

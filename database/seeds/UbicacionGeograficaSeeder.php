@@ -13,8 +13,16 @@ class UbicacionGeograficaSeeder extends Seeder
     {
         DB::table('ubicaciones_geograficas')->delete();
 
-        $ubicaciones_geograficas = ['codigo' => '32', 'nombre' => 'Zacatecas', 'created_at' => \Carbon\Carbon::now()];
+        $ubicaciones_geograficas = array(
+            ['codigo' => '32', 'nombre' => 'Zacatecas', 'created_at' => \Carbon\Carbon::now()],
+            ['codigo' => '03', 'nombre' => 'Baja California Sur', 'created_at' => \Carbon\Carbon::now() ]
+        );
 
-        \App\UbicacionGeografica::create($ubicaciones_geograficas);
+
+
+        foreach($ubicaciones_geograficas as $ubicacion_geografica)
+        {
+            \App\UbicacionGeografica::create($ubicacion_geografica);
+        }
     }
 }
