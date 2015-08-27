@@ -84,6 +84,10 @@ class RestController extends Controller
             $data = $data->get();
 
 
+            if($data->isEmpty())
+            {
+                $data = ['mensaje' => 'Sin Resultados.'];
+            }
 
 
         }
@@ -142,6 +146,7 @@ class RestController extends Controller
         $url= $request->input('url');
 
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Requested-With: XMLHttpRequest"));
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_REFERER, $url);

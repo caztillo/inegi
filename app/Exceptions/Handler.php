@@ -41,14 +41,12 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
 
-
         // 404 page when a model is not found
         if ($e instanceof ModelNotFoundException)
         {
-            if ( $request->isXmlHttpRequest() )
+            if ( $request->ajax() || $request->wantsJson() )
             {
-                return Response::json(
-                    ['error' =>  "Página no encontrada."], 404 );
+                return response()->json([ 'error' => 404, 'mensaje' => 'Recurso no encontrado' ], 404);
             }
 
             return response()->view('errors.404', [], 404);
@@ -58,6 +56,12 @@ class Handler extends ExceptionHandler
 
         if ($this->isHttpException($e))
         {
+            if ( $request->ajax() || $request->wantsJson() )
+            {
+                return response()->json([ 'error' => 404, 'mensaje' => 'Recurso no encontrado!' ], 404);
+
+            }
+
             return $this->renderHttpException($e);
         }
         else
@@ -66,14 +70,17 @@ class Handler extends ExceptionHandler
             // Custom error 500 view on production
             if (app()->environment() == 'production')
             {
-                if ( $request->isXmlHttpRequest() )
+                if ( $request->ajax() || $request->wantsJson() )
                 {
-                    return Response::json( [
-                        'error' => [
-                            'exception' => class_basename( $e ) . ' in ' . basename( $e->getFile() ) . ' line ' . $e->getLine() . ': ' . $e->getMessage(),
-                        ]
-                    ], 500 );
+
+                    return response()->json(
+                        ['error' =>
+                            [
+                                'exception' => class_basename( $e ) . ' in ' . basename( $e->getFile() ) . ' line ' . $e->getLine() . ': ' . $e->getMessage(),
+                            ]
+                        ], 500 );
                 }
+
 
                 return response()->view('errors.500', [], 500);
             }
