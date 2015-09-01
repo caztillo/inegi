@@ -4,7 +4,5 @@ La siguiente aplicación web PHP está diseñadaba para consumir los servicios w
 #Guía de Instalación
 
 1. Clona este repositorio: git clone git@github.com:caztillo/inegi.git inegi/
-2. Utiliza los siguientes comandos:
-__i. composer install
-__ii. php artisan migrate --seed
+2. Utiliza los siguientes comandos: "composer install" y "php artisan migrate --seed"
 3. Listo.
