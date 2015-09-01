@@ -1,18 +1,10 @@
-## Pagoda Box Laravel 5.1 Boilerplate
+#Acerca de
+La siguiente aplicación web PHP está diseñadaba para consumir los servicios web ofrecidos por el Instituto Nacional de Estadística y Geografía de México (INEGI). La aplicación ofrece dos interfaces, una para consumir un servicio web usando el protocolo SOAP que ofrece el INEGI. La otra interfaz es una representación del servicio web anterior usando una arquitectura REST mediante el framework Laravel.
 
-Laravel is a web application framework built for web artisans. Pagoda Box simplifies deployment and ongoing management of code and infrastructure in a scalable environment.
+#Guía de Instalación
 
-This repo takes a base Laravel install and adds configuration files necessary to get it up and running on Pagoda Box in no time.
-
-## First Steps
-
-Be sure the set your `APP_KEY` in your `Boxfile`. This is typically a random 32 character string.
-
-## Documentation
-
-All changes made in this boilerplate are outlined in the [Pagoda Box documentation](https://pagodabox.io/docs/framework_laravel)
-The official documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+1. Clona este repositorio: git clone git@github.com:caztillo/inegi.git inegi/
+2. Utiliza los siguientes comandos:
+    i. composer install
+    ii. php artisan migrate --seed
+3. Listo.
