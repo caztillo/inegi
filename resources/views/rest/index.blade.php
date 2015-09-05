@@ -85,7 +85,10 @@
 
                                 if(!json_parsed.error)
                                 {
-                                    $.get("{{url('graph')}}?url="+url_rest,function(data) {
+                                    var url_params = url_rest.split("/api/").pop();
+
+
+                                    $.get("{{url('graph')}}?url="+url_params,function(data) {
 
                                         var chart = c3.generate({
                                             data: {

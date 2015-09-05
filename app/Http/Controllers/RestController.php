@@ -136,9 +136,10 @@ class RestController extends Controller
             $segments = explode('/', $url);
 
 
-            $indicador = (isset($segments[9])) ? $segments[9] : null;
-            $ubicacion = (isset($segments[11])) ? $segments[11] : null;
-            $periodo = (isset($segments[13])) ? $segments[13] : null;
+
+            $indicador = (isset($segments[2])) ? $segments[2] : null;
+            $ubicacion = (isset($segments[4])) ? $segments[4] : null;
+            $periodo = (isset($segments[6])) ? $segments[6] : null;
 
 
 
