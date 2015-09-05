@@ -20,26 +20,6 @@ class RestController extends Controller
         return view("rest.index");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -84,56 +64,31 @@ class RestController extends Controller
             $data = $data->get();
 
 
+
             if($data->isEmpty())
             {
-                $data = ['mensaje' => 'Sin Resultados.'];
+                $data = ['error' => true,'mensaje' => 'Sin Resultados.'];
+
+                return \Illuminate\Support\Facades\Response::json($data, 400);
             }
 
 
+
+
         }
-        catch (Exception $e)
+        catch (\Exception $e)
         {
             $statusCode = 400;
+            $data = ['error' => true,'mensaje' => 'Sin Resultados.'];
         }
         finally
         {
+
             return \Illuminate\Support\Facades\Response::json($data, $statusCode);
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     /**
      * Execute cURL method from url.
@@ -160,5 +115,94 @@ class RestController extends Controller
         session_start(); // same site
 
         return $body;
+    }
+
+    /**
+     * Generate a JSON response to graph
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function graph(Request $request)
+    {
+
+        $json = array();
+        try
+        {
+            $statusCode = 200;
+
+            $url = $request->input('url');
+
+            $segments = explode('/', $url);
+
+
+            $indicador = (isset($segments[9])) ? $segments[9] : null;
+            $ubicacion = (isset($segments[11])) ? $segments[11] : null;
+            $periodo = (isset($segments[13])) ? $segments[13] : null;
+
+
+
+            $data = IndicadorUbicacionGeografica::whereHas('indicador', function($query) use ($indicador)
+            {
+                $query->where('indicador', '=', $indicador);
+
+
+            })
+                ->with('indicador')
+                ->whereHas('ubicacion_geografica', function($query) use ($ubicacion)
+                {
+                    if(!empty($ubicacion))
+                        $query->where('codigo', '=', $ubicacion);
+
+                })
+                ->with('ubicacion_geografica');
+
+
+
+            if(!empty($periodo))
+            {
+                $data = $data->where('periodo', $periodo);
+            }
+
+            $data = $data->orderBy('periodo','asc')->get();
+
+            if($data->isEmpty())
+            {
+
+                return \Illuminate\Support\Facades\Response::json(['mensaje' => 'Sin Resultados.'], $statusCode);
+            }
+
+            $json = array();
+            $ubicaciones = array();
+            $json_keys = array();
+
+            foreach($data as $indicador)
+            {
+                if(!in_array((string)$indicador->ubicacion_geografica->nombre,$ubicaciones))
+                    array_push($ubicaciones,(string)$indicador->ubicacion_geografica->nombre);
+
+                if(!in_array($indicador->periodo,$json_keys))
+                    array_push($json_keys,$indicador->periodo);
+
+                $valores[(string)$indicador->ubicacion_geografica->nombre][] = array($indicador->valor);
+            }
+
+            $json['json'] = $valores;
+            $json['keys'] = $json_keys;
+            $json['values'] = $ubicaciones;
+
+
+
+        }
+        catch (\Exception $e)
+        {
+            $statusCode = 400;
+            $json = ['error' => true,'mensaje' => 'Sin Resultados.'];
+        }
+        finally
+        {
+            return \Illuminate\Support\Facades\Response::json($json, $statusCode);
+        }
+
     }
 }

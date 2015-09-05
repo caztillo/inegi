@@ -5,6 +5,7 @@
     {!! Html::style('css/materialize.min.css',['media' => "screen,projection"]) !!}
     {!! Html::style('css/ladda.min.css') !!}
     {!! Html::style('css/prettify.css') !!}
+    {!! Html::style('css/c3.min.css') !!}
 
     <title>INEGI WebServices</title>
     <meta charset=UTF-8">
@@ -25,6 +26,8 @@
 {!! Html::script('js/spin.min.js') !!}
 {!! Html::script('js/ladda.min.js') !!}
 {!! Html::script('js/prettify.js') !!}
+{!! Html::script('js/d3.v3.min.js') !!}
+{!! Html::script('js/c3.min.js') !!}
 
 @yield('scripts')
 

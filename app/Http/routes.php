@@ -23,6 +23,7 @@ Route::post('/soap-webservice', array('uses' => 'SoapController@webservice'));
 
 Route::get('/rest', array('uses' => 'RestController@index'));
 Route::post('/curl', array('uses' => 'RestController@curl'));
+Route::get('/graph', array('uses' => 'RestController@graph'));
 
 Route::group(array('prefix' => 'rest/api/v1'), function()
 {

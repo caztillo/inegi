@@ -21,8 +21,6 @@ class SoapController extends Controller
         return view("soap.index");
 
 
-
-
     }
 
     /**
@@ -46,17 +44,7 @@ class SoapController extends Controller
 
 
         return Response($content->obtieneValoresOportunosResult->any,200)->header('Content-Type', 'text/xml');;
-        //echo $content->obtieneValoresOportunosResult->any;
-        /*
-        foreach ($dom->getElementsByTagNameNS('*', 'Obs') as $element) {
-            $item = [];
-            foreach($element->attributes as $attr){
-                $item[$attr->nodeName] = $attr->nodeValue;
-            }
-            $collection[] = $item;
-        }
 
-        echo $collection[0]["OBS_VALUE"];*/
 
     }
 }

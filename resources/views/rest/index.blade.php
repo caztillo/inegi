@@ -31,6 +31,8 @@
 
 
         <div class="col s12">
+            <p>Gráfica</p>
+            <div id="chart"></div>
             <p>Respuesta:</p>
             <pre style="min-height: 400px;"><code id="json_response" ></code></pre>
         </div>
@@ -52,6 +54,7 @@
                 var l = Ladda.create(this);
                 var url_rest = $('input[name="url"]').val();
 
+
                 var ajaxData  = {'url' : url_rest, _token: '{{ csrf_token() }}'};
                 $.ajax(
                         {
@@ -69,15 +72,47 @@
 
                             success : function(response, textStatus, jqXHR)
                             {
+
                                 l.stop();
                                 btn.prop('disabled', false);
                                 var json = jqXHR.responseText;
-
-                                var json_formatted = JSON.stringify(JSON.parse(json), null, "\t"); // Indented with tab
+                                var json_parsed = JSON.parse(json);
+                                var json_formatted = JSON.stringify(json_parsed, null, "\t"); // Indented with tab
 
                                 $('#json_response').fadeOut().fadeIn().text(json_formatted);
                                 $('pre').removeClass("prettyprint prettyprinted ").addClass("prettyprint");
-                                prettyPrint();
+                                prettyPrint()
+
+                                if(!json_parsed.error)
+                                {
+                                    $.get("{{url('graph')}}?url="+url_rest,function(data) {
+
+                                        var chart = c3.generate({
+                                            data: {
+                                                json: data.json,
+                                            },
+                                            axis: {
+                                                x: {
+                                                    type: 'category',
+                                                    categories: data.keys
+                                                }
+                                            },
+
+                                        });
+
+                                    }, "json").success(function() { $('#chart').fadeOut().fadeIn();  })
+                                            .error(function()
+                                            {
+
+                                                $('#chart').fadeOut(); Materialize.toast(json_parsed.mensaje, 4000)
+                                            })
+                                }
+                                else
+                                {
+                                    $('#chart').fadeOut(); Materialize.toast(json_parsed.mensaje, 4000)
+                                }
+
+
 
                             },
 
@@ -86,13 +121,14 @@
                                 l.stop();
                                 var jsonErrors = jqXhr.responseJSON;
                                 var errors = '';
-                                console.log(jqXhr.responseJSON);
+                                var json = jqXhr.responseText;
+                                var json_parsed = JSON.parse(json);
                                 $.each( jsonErrors, function( key, value )
                                 {
                                     errors += '<li>' + value + '</li>';
                                 });
 
-                                Materialize.toast(errors, 4000) // 4000 is the duration of the toast
+                                Materialize.toast(json_parsed.mensaje, 4000) // 4000 is the duration of the toast
                                 //toastr.error( errors , "Error " + jqXhr.status +': '+ errorThrown);
 
                                 return false;
@@ -105,7 +141,12 @@
 
                 return false;
             });
+
+
         });
+
+
+
 
 
     </script>
