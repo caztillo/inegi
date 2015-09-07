@@ -36,13 +36,9 @@ class RestController extends Controller
         {
             $statusCode = 200;
 
-
-
-
             $data = IndicadorUbicacionGeografica::whereHas('indicador', function($query) use ($indicador)
             {
                 $query->where('indicador', '=', $indicador);
-
 
             })
                 ->with('indicador')
@@ -50,11 +46,8 @@ class RestController extends Controller
                 {
                     if(!empty($ubicacion))
                         $query->where('codigo', '=', $ubicacion);
-
                 })
                 ->with('ubicacion_geografica');
-
-
 
             if(!empty($periodo))
             {
@@ -63,17 +56,11 @@ class RestController extends Controller
 
             $data = $data->get();
 
-
-
             if($data->isEmpty())
             {
                 $data = ['error' => true,'mensaje' => 'Sin Resultados.'];
-
                 return \Illuminate\Support\Facades\Response::json($data, 400);
             }
-
-
-
 
         }
         catch (\Exception $e)
@@ -83,7 +70,6 @@ class RestController extends Controller
         }
         finally
         {
-
             return \Illuminate\Support\Facades\Response::json($data, $statusCode);
         }
     }
@@ -107,12 +93,12 @@ class RestController extends Controller
         curl_setopt($ch, CURLOPT_REFERER, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        session_write_close(); //same site
+        session_write_close();
 
         $body = curl_exec($ch);
         curl_close($ch);
 
-        session_start(); // same site
+        session_start();
 
         return $body;
     }
@@ -125,40 +111,28 @@ class RestController extends Controller
      */
     public function graph(Request $request)
     {
-
         $json = array();
         try
         {
             $statusCode = 200;
-
             $url = $request->input('url');
-
             $segments = explode('/', $url);
-
-
 
             $indicador = (isset($segments[2])) ? $segments[2] : null;
             $ubicacion = (isset($segments[4])) ? $segments[4] : null;
             $periodo = (isset($segments[6])) ? $segments[6] : null;
 
-
-
             $data = IndicadorUbicacionGeografica::whereHas('indicador', function($query) use ($indicador)
             {
                 $query->where('indicador', '=', $indicador);
-
-
             })
                 ->with('indicador')
                 ->whereHas('ubicacion_geografica', function($query) use ($ubicacion)
                 {
                     if(!empty($ubicacion))
                         $query->where('codigo', '=', $ubicacion);
-
                 })
                 ->with('ubicacion_geografica');
-
-
 
             if(!empty($periodo))
             {
@@ -169,7 +143,6 @@ class RestController extends Controller
 
             if($data->isEmpty())
             {
-
                 return \Illuminate\Support\Facades\Response::json(['mensaje' => 'Sin Resultados.'], $statusCode);
             }
 
@@ -191,8 +164,6 @@ class RestController extends Controller
             $json['json'] = $valores;
             $json['keys'] = $json_keys;
             $json['values'] = $ubicaciones;
-
-
 
         }
         catch (\Exception $e)

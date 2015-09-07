@@ -31,7 +31,7 @@ class SoapController extends Controller
     public function webservice(Request $request)
     {
 
-        $client = new \SoapClient("http://www2.inegi.org.mx/servicioindicadores/Indicadores.asmx?WSDL", array('trace' => true));
+        $client = new \SoapClient("http://www2.inegi.org.mx/servicioindicadores/Indicadores.asmx?WSDL");
         $indicador = 1002000001;
         $ubicacionGeografica = 32;
 
@@ -42,8 +42,7 @@ class SoapController extends Controller
 
         $content = $client->obtieneValoresOportunos(["Indicador" =>$indicador, "ubicacionGeografica" => $ubicacionGeografica]);
 
-
-        return Response($content->obtieneValoresOportunosResult->any,200)->header('Content-Type', 'text/xml');;
+        return Response($content->obtieneValoresOportunosResult->any,200)->header('Content-Type', 'text/xml');
 
 
     }
